@@ -1,2 +1,3 @@
 # CPU-Conquest
-# CPU Conquest ## A game made in unity for revision of the FDE cycle WIP
+## A game made in unity for revision of the FDE cycle
+WIP
