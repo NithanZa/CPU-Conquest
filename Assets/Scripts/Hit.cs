@@ -13,7 +13,7 @@ public class Hit : MonoBehaviour
     void Update()
     {        
         if (currentHitCD <= 0f) {
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetButtonDown("Fire1")) {
                 animator.SetTrigger("hit");
                 currentHitCD = hitCD;
             }

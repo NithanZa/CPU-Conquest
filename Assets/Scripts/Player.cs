@@ -6,6 +6,6 @@ public class Player : Entity
 {
     void Start()
     {
-        
+        healthBar.SetColor(Color.blue);
     }
 }
