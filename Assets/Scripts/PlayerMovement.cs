@@ -10,12 +10,12 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
 
-    void Update()
+    void FixedUpdate()
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-        float horizontalSpeed = horizontal * speed * Time.deltaTime;
-        float verticalSpeed = vertical * speed * Time.deltaTime;
+        float horizontalSpeed = horizontal * speed;
+        float verticalSpeed = vertical * speed;
         animator.SetFloat("speed", (Mathf.Abs(horizontalSpeed) + Mathf.Abs(verticalSpeed))/2);
         rb.velocity = new Vector2(horizontalSpeed, verticalSpeed);
         Flip();
