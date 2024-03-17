@@ -6,15 +6,20 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
     public Rigidbody2D rb;
+    private Vector3 initialDirection;
+    public GameObject monster;
+    private MonsterShoot monsterShoot;
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.right * speed;
+        monsterShoot = monster.GetComponent<MonsterShoot>();
+        initialDirection = (monsterShoot.playerLoc.position - transform.position).normalized;
+        rb.velocity = initialDirection * speed;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        
+        Debug.Log(hitInfo.name);
+        Destroy(gameObject);
     }
 }
