@@ -8,14 +8,16 @@ public class Shooter : MonoBehaviour
     public float bulletRange = 10f;
     public float speed = 8f;
     public Transform firePoint;
-    private Transform target;
     public GameObject bulletPrefab;
     private Vector3 initialDirection;
 
-    public void Shoot() {
+    public void Shoot(Transform target) {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        initialDirection = (firePoint.position - target.position).normalized;
+        initialDirection = (target.position - firePoint.position).normalized;
         rb.velocity = initialDirection * speed;
+
+        float angle = Mathf.Atan2(initialDirection.y, initialDirection.x) * Mathf.Rad2Deg;
+        bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }
