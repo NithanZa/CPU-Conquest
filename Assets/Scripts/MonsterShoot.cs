@@ -5,6 +5,8 @@ public class MonsterShoot : Shooter
     public float shootRange = 5f;
     private bool shooting = false;
     public Transform playerLoc;
+    public float shootCooldown = 2f;
+    public Collider2D collider;
 
     void Update() {
         Vector3 distance = playerLoc.position - transform.position;
@@ -13,12 +15,12 @@ public class MonsterShoot : Shooter
             shooting = false;
             CancelInvoke(nameof(ShootPlayer));
         } else if (!shooting && distance.magnitude < shootRange) {
-            InvokeRepeating(nameof(ShootPlayer), 0f, 2f);
+            InvokeRepeating(nameof(ShootPlayer), 0f, shootCooldown);
             shooting = true;
         }
     }
 
     void ShootPlayer() {
-        Shoot(playerLoc);
+        Shoot(playerLoc, collider);
     }
 }

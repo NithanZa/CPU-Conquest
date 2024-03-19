@@ -11,7 +11,7 @@ public class Shooter : MonoBehaviour
     public GameObject bulletPrefab;
     private Vector3 initialDirection;
 
-    public void Shoot(Transform target) {
+    public void Shoot(Transform target, Collider2D shooterCollider) {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         initialDirection = (target.position - firePoint.position).normalized;
@@ -19,5 +19,7 @@ public class Shooter : MonoBehaviour
 
         float angle = Mathf.Atan2(initialDirection.y, initialDirection.x) * Mathf.Rad2Deg;
         bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        bullet.GetComponent<Bullet>().shooterCollider = shooterCollider;
+        bullet.GetComponent<Bullet>().bulletRange = bulletRange;
     }
 }
