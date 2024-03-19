@@ -11,10 +11,14 @@ public class MonsterShoot : Shooter
         distance.z = 0f;
         if (shooting && distance.magnitude > shootRange) {
             shooting = false;
-            CancelInvoke(nameof(Shoot));
+            CancelInvoke(nameof(ShootPlayer));
         } else if (!shooting && distance.magnitude < shootRange) {
-            InvokeRepeating(nameof(Shoot), 0f, 2f);
+            InvokeRepeating(nameof(ShootPlayer), 0f, 2f);
             shooting = true;
         }
+    }
+
+    void ShootPlayer() {
+        Shoot(playerLoc);
     }
 }
