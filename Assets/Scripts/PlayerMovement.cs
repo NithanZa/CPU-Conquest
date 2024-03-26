@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
+            Transform hbTransform = gameObject.transform.Find("HB Canvas");
+            Vector3 hbScale = hbTransform.localScale;
+            hbScale.x *= -1f;
+            hbTransform.localScale = hbScale;
         }
     }
 }

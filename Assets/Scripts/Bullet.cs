@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     {
         if (hitInfo != shooterCollider) {
             Debug.Log(hitInfo.name);
+            shooterCollider.GetComponentInParent<Entity>().DealDamage(hitInfo.GetComponentInParent<Entity>(), 10f);
             Destroy(gameObject);
         }
     }

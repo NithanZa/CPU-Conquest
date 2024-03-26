@@ -6,7 +6,7 @@ public class MonsterFacePlayer : MonoBehaviour
 {
     public float detectionRange = 10f;
     public Transform playerLoc;
-    public bool monsterFacingLeft = true;
+    public bool monsterFacingLeft = false;
 
     void Update() {
         Vector3 distance = playerLoc.position - transform.position;

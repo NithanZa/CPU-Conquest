@@ -6,7 +6,7 @@ public class Entity : MonoBehaviour
 {
     public float maxHealth = 100;
     protected float currentHealth;
-
+    public Color barColor;
     public HealthBar healthBar;
     // Start is called before the first frame update
     void Start()
@@ -14,15 +14,23 @@ public class Entity : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetHealth(currentHealth);
+        healthBar.SetColor(barColor);
     }
 
     public void ReceiveDamage(float damage) {
-        currentHealth -= damage;
-        healthBar.SetHealth(damage);
+        if (damage >= currentHealth) {
+            Debug.Log("damage > currentHealth");
+            Destroy(gameObject);
+        } else {
+            Debug.Log("currentHealth > damage");
+            Debug.Log("ch: " + currentHealth);
+            Debug.Log("dmg: " + damage);
+            currentHealth -= damage;
+            healthBar.SetHealth(currentHealth);
+        }
     }
 
     public void DealDamage(Entity entity, float damage) {
         entity.ReceiveDamage(damage);
-        healthBar.SetHealth(damage);
     }
 }
