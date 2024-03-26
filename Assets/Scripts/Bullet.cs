@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [HideInInspector] public Collider2D shooterCollider;
     [HideInInspector] public float bulletRange;
     [HideInInspector] public Transform firePoint;
+    private float distance;
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
@@ -16,5 +17,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void 
+    void Update() {
+        distance = (transform.position - firePoint.position).magnitude;
+        if (distance > bulletRange) {
+            Destroy(gameObject);
+        }
+    }
 }
