@@ -21,5 +21,6 @@ public class Shooter : MonoBehaviour
         bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         bullet.GetComponent<Bullet>().shooterCollider = shooterCollider;
         bullet.GetComponent<Bullet>().bulletRange = bulletRange;
+        bullet.GetComponent<Bullet>().firePoint = firePoint;
     }
 }
