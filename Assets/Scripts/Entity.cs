@@ -5,7 +5,7 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     public float maxHealth = 100;
-    protected float currentHealth;
+    float currentHealth;
     public Color barColor;
     public HealthBar healthBar;
     // Start is called before the first frame update

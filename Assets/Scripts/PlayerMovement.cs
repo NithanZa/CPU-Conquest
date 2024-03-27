@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 800f;
     private bool isFacingRight = true;
     public Animator animator;
+    public Sprite planeSprite;
+    public SpriteRenderer spriteRenderer;
 
     [SerializeField] private Rigidbody2D rb;
 
@@ -33,6 +35,19 @@ public class PlayerMovement : MonoBehaviour
             Vector3 hbScale = hbTransform.localScale;
             hbScale.x *= -1f;
             hbTransform.localScale = hbScale;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D hitInfo) {
+        if (hitInfo.CompareTag("PlaneTrigger")) {
+            animator.enabled = false;
+            spriteRenderer.sprite = planeSprite;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D hitInfo) {
+        if (hitInfo.CompareTag("PlaneTrigger")) {
+            animator.enabled = true;
         }
     }
 }
