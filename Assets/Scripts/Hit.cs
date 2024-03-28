@@ -20,14 +20,18 @@ public class Hit : MonoBehaviour
             if (Input.GetButtonDown("Fire1")) {
                 animator.SetTrigger("hit");
                 currentHitCD = hitCD;
-                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(weaponLoc.position, attackRange, enemyLayers);
-
-                foreach (Collider2D enemy in hitEnemies) {
-                    gameObject.GetComponent<Entity>().DealDamage(enemy.gameObject.GetComponent<Entity>(), weaponDmg);
-                }
+                DamageHit();
             }
         } else {
             currentHitCD -= Time.deltaTime;
+        }
+    }
+
+    public void DamageHit() {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(weaponLoc.position, attackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies) {
+            gameObject.GetComponent<Entity>().DealDamage(enemy.gameObject.GetComponent<Entity>(), weaponDmg);
         }
     }
 }

@@ -8,6 +8,7 @@ public class Entity : MonoBehaviour
     float currentHealth;
     public Color barColor;
     public HealthBar healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +20,13 @@ public class Entity : MonoBehaviour
 
     public void ReceiveDamage(float damage) {
         if (damage >= currentHealth) {
-            Debug.Log("damage > currentHealth");
+            // Debug.Log("damage > currentHealth");
+            gameObject.GetComponent<AddressSpawner>().CheckEntityAndSpawnAddress();
             Destroy(gameObject);
         } else {
-            Debug.Log("currentHealth > damage");
-            Debug.Log("ch: " + currentHealth);
-            Debug.Log("dmg: " + damage);
+            // Debug.Log("currentHealth > damage");
+            // Debug.Log("ch: " + currentHealth);
+            // Debug.Log("dmg: " + damage);
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
         }

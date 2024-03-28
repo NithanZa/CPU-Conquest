@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -42,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
         if (hitInfo.CompareTag("PlaneTrigger")) {
             animator.enabled = false;
             spriteRenderer.sprite = planeSprite;
+        }
+        if (hitInfo.CompareTag("Memory")) {
+            gameObject.transform.Find("IAT").GetComponent<TextMeshPro>().SetText("hello");
         }
     }
 
