@@ -8,8 +8,8 @@ public class Entity : MonoBehaviour
     float currentHealth;
     public Color barColor;
     public HealthBar healthBar;
-    public restart restart;
-    private bool isDead;
+    private bool isDead = true;
+    public GameObject gameOverUi;
 
 
     // Start is called before the first frame update
@@ -22,7 +22,8 @@ public class Entity : MonoBehaviour
     }
 
     public void ReceiveDamage(float damage) {
-        if (damage >= currentHealth) {
+        if (damage >= currentHealth && (gameObject.CompareTag("InstructionMonster") || gameObject.CompareTag("DataMonster")))
+            {
             // Debug.Log("damage > currentHealth");
             gameObject.GetComponent<AddressSpawner>().CheckEntityAndSpawnAddress();
             Destroy(gameObject);
@@ -33,10 +34,11 @@ public class Entity : MonoBehaviour
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
         }
-        if (currentHealth < 0 && isDead)
+        if (currentHealth == 0 && isDead && gameObject.CompareTag("ply"))
         {
-            isDead = true;
-            restart.screen();
+            isDead = false;
+            gameOverUi.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 

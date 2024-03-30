@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-public class restart : MonoBehaviour
+
+public class Dataspawn : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -11,9 +11,8 @@ public class restart : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void RestartButton()
+    void Update()
     {
-        SceneManager.LoadScene("SampleScene");
-        Time.timeScale = 1;
+        
     }
 }

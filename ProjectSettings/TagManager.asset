@@ -9,6 +9,8 @@ TagManager:
   - DataMonster
   - Memory
   - PlaneTriggerRed
+  - robot
+  - ply
   layers:
   - Default
   - TransparentFX
