@@ -11,6 +11,11 @@ TagManager:
   - PlaneTriggerRed
   - robot
   - ply
+  - DataMemory
+  - InstructionMemory
+  - MDRTrigger
+  - CIRTrigger
+  - DecoderTrigger
   layers:
   - Default
   - TransparentFX

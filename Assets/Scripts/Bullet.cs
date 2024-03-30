@@ -19,9 +19,14 @@ public class Bullet : MonoBehaviour
     }
 
     void Update() {
-        distance = (transform.position - firePoint.position).magnitude;
-        if (distance > bulletRange) {
+        try {
+            distance = (transform.position - firePoint.position).magnitude;
+            if (distance > bulletRange) {
+                Destroy(gameObject);
+            }
+        } catch (MissingReferenceException e) {
             Destroy(gameObject);
         }
+        
     }
 }
