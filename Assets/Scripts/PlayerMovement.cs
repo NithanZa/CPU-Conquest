@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight = true;
     public Animator animator;
     public Sprite planeSprite;
-    public Sprite redPlaneSprite;
     public SpriteRenderer spriteRenderer;
 
     [SerializeField] private Rigidbody2D rb;
@@ -58,19 +57,10 @@ public class PlayerMovement : MonoBehaviour
         if (hitInfo.CompareTag("Memory")) {
             gameObject.transform.Find("IAT").GetComponent<TextMeshPro>().SetText("hello");
         }
-        if (hitInfo.CompareTag("PlaneTriggerRed"))
-        {
-            animator.enabled = false;
-            spriteRenderer.sprite = redPlaneSprite;
-        }
     }
 
     void OnTriggerExit2D(Collider2D hitInfo) {
         if (hitInfo.CompareTag("PlaneTrigger")) {
-            animator.enabled = true;
-        }
-        if (hitInfo.CompareTag("PlaneTriggerRed"))
-        {
             animator.enabled = true;
         }
     }

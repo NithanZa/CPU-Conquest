@@ -8,9 +8,6 @@ public class Entity : MonoBehaviour
     float currentHealth;
     public Color barColor;
     public HealthBar healthBar;
-    public restart restart;
-    private bool isDead;
-
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +29,6 @@ public class Entity : MonoBehaviour
             // Debug.Log("dmg: " + damage);
             currentHealth -= damage;
             healthBar.SetHealth(currentHealth);
-        }
-        if (currentHealth < 0 && isDead)
-        {
-            isDead = true;
-            restart.screen();
         }
     }
 
