@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9063153301801877602}
   m_Layer: 0
   m_Name: Instruction Text
-  m_TagString: Untagged
+  m_TagString: InstructionMonster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,9 +165,9 @@ MonoBehaviour:
   m_margin: {x: 8.722242, y: 2.3270574, z: 8.756006, w: 1.725211}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _SortingLayer: 0
-  _SortingLayerID: 0
-  _SortingOrder: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 8749158295608534497}
   m_maskType: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
