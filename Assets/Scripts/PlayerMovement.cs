@@ -36,6 +36,16 @@ public class PlayerMovement : MonoBehaviour
             Vector3 hbScale = hbTransform.localScale;
             hbScale.x *= -1f;
             hbTransform.localScale = hbScale;
+
+            Transform IATTransform = gameObject.transform.Find("IAT");
+            Vector3 IATScale = IATTransform.localScale;
+            IATScale.x *= -1f;
+            IATTransform.localScale = IATScale;
+
+            Transform DATTransform = gameObject.transform.Find("DAT");
+            Vector3 DATScale = DATTransform.localScale;
+            DATScale.x *= -1f;
+            DATTransform.localScale = DATScale;
         }
     }
 
