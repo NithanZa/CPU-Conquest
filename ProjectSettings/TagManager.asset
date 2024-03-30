@@ -8,6 +8,7 @@ TagManager:
   - InstructionMonster
   - DataMonster
   - Memory
+  - PlaneTriggerRed
   layers:
   - Default
   - TransparentFX
