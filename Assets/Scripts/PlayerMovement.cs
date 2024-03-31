@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Sprite planeSprite;
     public Sprite redPlaneSprite;
     public SpriteRenderer spriteRenderer;
+    private bool pcIncreased;
     private bool instructionAddressConverted = false;
     private bool dataAddressConverted = false;
     private bool mdrTriggered = false;
@@ -19,8 +20,14 @@ public class PlayerMovement : MonoBehaviour
     private bool decoded = false;
     private bool calculated = false;
     private bool accTriggered = false;
+    public TextMeshPro pcStatusText;
+    public TextMeshPro pcNumberText;
     public TextMeshPro decoderStatusText;
     public TextMeshPro calculatorStatusText;
+    public TextMeshPro instructionLabelText;
+    public TextMeshPro dataLabelText;
+    public TextMeshPro instructionNumbersText;
+    public TextMeshPro dataNumbersText;
     
     readonly private string[] translatedArray = new string[16] {
         "Add 8", "Add 6", "Add 5", "Minus 4",
@@ -87,6 +94,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo) {
+        if (hitInfo.CompareTag("PCTrigger") && !pcIncreased) {
+            pcStatusText.SetText("Increased!");
+            pcNumberText.SetText("1");
+            pcIncreased = true;
+        }
         if (hitInfo.CompareTag("PlaneTrigger")) {
             animator.enabled = false;
             spriteRenderer.sprite = planeSprite;
@@ -100,6 +112,10 @@ public class PlayerMovement : MonoBehaviour
             int itAddress = Convert.ToInt32(itText[21..], 2);
             string instruction = dataArray[itAddress];
             gameObject.transform.Find("IT").GetComponent<TextMeshPro>().SetText("Instruction: " + instruction);
+            instructionLabelText.SetText("");
+            dataLabelText.SetText("");
+            instructionNumbersText.SetText("Instruction address converted!");
+            dataNumbersText.SetText("Data address converted!");
             instructionAddressConverted = true;
         }
         if (hitInfo.CompareTag("DataMemory") && !dataAddressConverted) {
@@ -193,6 +209,9 @@ public class PlayerMovement : MonoBehaviour
             Destroy(gameObject.transform.Find("IT").gameObject);
 
             GameObject dt = gameObject.transform.Find("DT").gameObject; // reusing DT for result
+            Renderer resultRenderer = dt.GetComponent<Renderer>();
+            Material material = resultRenderer.material;
+            material.SetColor("_OutlineColor", Color.black);
             dt.name = "Result";
             TextMeshPro tmp = dt.GetComponent<TextMeshPro>();
             tmp.SetText("Result: " + result.ToString());

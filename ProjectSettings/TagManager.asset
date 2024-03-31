@@ -9,7 +9,6 @@ TagManager:
   - DataMonster
   - Memory
   - PlaneTriggerRed
-  - robot
   - ply
   - DataMemory
   - InstructionMemory
@@ -18,6 +17,7 @@ TagManager:
   - DecoderTrigger
   - CalculatorTrigger
   - ACCTrigger
+  - PCTrigger
   layers:
   - Default
   - TransparentFX

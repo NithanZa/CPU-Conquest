@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,12 @@ public class Bullet : MonoBehaviour
     {
         if (hitInfo != shooterCollider) {
             Debug.Log(hitInfo.name);
-            shooterCollider.GetComponentInParent<Entity>().DealDamage(hitInfo.GetComponentInParent<Entity>(), 10f);
-            Destroy(gameObject);
+            try {
+                shooterCollider.GetComponentInParent<Entity>().DealDamage(hitInfo.GetComponentInParent<Entity>(), 10f);
+                Destroy(gameObject);
+            } catch (NullReferenceException e) {
+                Destroy(gameObject);
+            }
         }
     }
 
