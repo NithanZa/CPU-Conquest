@@ -214,8 +214,15 @@ public class PlayerMovement : MonoBehaviour
             material.SetColor("_OutlineColor", Color.black);
             dt.name = "Result";
             TextMeshPro tmp = dt.GetComponent<TextMeshPro>();
-            tmp.SetText("Result: " + result.ToString());
+            string a = result.ToString();
+            tmp.SetText("Result: " + a);
             tmp.color = Color.white;
+
+            try {
+                Renderer childRenderer = dt.transform.GetChild(0).gameObject.GetComponent<Renderer>();
+                Material childMaterial = childRenderer.material;
+                childMaterial.SetColor("_OutlineColor", Color.black);
+            } catch (Exception e) {}
 
             calculatorStatusText.SetText("Calculated!");
             calculated = true;
