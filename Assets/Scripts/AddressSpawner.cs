@@ -15,7 +15,7 @@ public class AddressSpawner : MonoBehaviour
             GameObject it = Instantiate(textPrefab, player.transform);
             if (player.transform.localScale.x < 0) {
                 Vector3 itScale = it.transform.localScale;
-                itScale.x = Mathf.Abs(itScale.x);
+                itScale.x = -Mathf.Abs(itScale.x);
                 it.transform.localScale = itScale;
             }
             it.transform.localPosition = new Vector3(0f, 0.3f, -1f);

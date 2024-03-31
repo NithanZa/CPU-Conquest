@@ -16,6 +16,8 @@ TagManager:
   - MDRTrigger
   - CIRTrigger
   - DecoderTrigger
+  - CalculatorTrigger
+  - ACCTrigger
   layers:
   - Default
   - TransparentFX

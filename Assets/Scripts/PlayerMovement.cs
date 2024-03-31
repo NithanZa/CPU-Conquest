@@ -17,16 +17,19 @@ public class PlayerMovement : MonoBehaviour
     private bool mdrTriggered = false;
     private bool cirTriggered = false;
     private bool decoded = false;
+    private bool calculated = false;
+    private bool accTriggered = false;
     public TextMeshPro decoderStatusText;
+    public TextMeshPro calculatorStatusText;
     
     readonly private string[] translatedArray = new string[16] {
-        "9557", "Minus 4", "2789", "7807",
-        "Times 6", "3957", "Minus 2", "1548",
-        "Add 6", "4472", "Times 4", "8842",
-        "Add 8", "Add 5", "9433", "Times 3"
+        "Add 8", "Add 6", "Add 5", "Minus 4",
+        "Minus 2", "Times 4", "Times 3", "Times 6",
+        "1", "15", "5", "8",
+        "0", "2", "10", "6"
     };
 
-    readonly private string[] dataArray = new string[] {
+    readonly private string[] dataArray = new string[16] {
         "1100", "0011", "1011", "1110",
         "0111", "1001", "0100", "1101",
         "0001", "1111", "0101", "1000",
@@ -74,8 +77,12 @@ public class PlayerMovement : MonoBehaviour
                 itScale.x *= -1f;
                 itTransform.localScale = itScale;
             } catch (Exception e) {}
-            
-            
+            try {
+                Transform resultTransform = gameObject.transform.Find("Result");
+                Vector3 resultScale = resultTransform.localScale;
+                resultScale.x *= -1f;
+                resultTransform.localScale = resultScale;
+            } catch (Exception e) {}
         }
     }
 
@@ -148,17 +155,63 @@ public class PlayerMovement : MonoBehaviour
         }
         if (hitInfo.CompareTag("DecoderTrigger") && !decoded) {
             string itText = gameObject.transform.Find("IT").GetComponent<TextMeshPro>().text;
-            int itAddress = Convert.ToInt32(itText[13..], 2);
-            string instruction = translatedArray[itAddress]; // main difference is using `translatedArray`
+            int itIndex = Array.IndexOf(dataArray, itText[13..]);
+            Debug.Log(itIndex);
+            string instruction = translatedArray[itIndex]; // main difference is using `translatedArray`
             gameObject.transform.Find("IT").GetComponent<TextMeshPro>().SetText("Instruction: " + instruction);
+
             string dtText = gameObject.transform.Find("DT").GetComponent<TextMeshPro>().text;
-            int dtAddress = Convert.ToInt32(dtText[6..], 2);
-            string data = translatedArray[dtAddress];
+            int dtIndex = Array.IndexOf(dataArray, dtText[6..]);
+            Debug.Log(dtIndex);
+            string data = translatedArray[dtIndex];
             gameObject.transform.Find("DT").GetComponent<TextMeshPro>().SetText("Data: " + data);
             decoderStatusText.SetText("Decoded!");
             decoded = true;
         }
-        
+        if (hitInfo.CompareTag("CalculatorTrigger") && !calculated) {
+            string itText = gameObject.transform.Find("IT").GetComponent<TextMeshPro>().text;
+            string instruction = itText[13..];
+
+            string dtText = gameObject.transform.Find("DT").GetComponent<TextMeshPro>().text;
+            int data = Convert.ToInt32(dtText[6..]);
+            
+            int instructionLength = instruction.Length;
+            string instructionOperator = instruction[..(instructionLength-2)];
+            int instructionValue = instruction[instructionLength-1] - '0';
+
+            int result = -1;
+
+            Debug.Log(data);
+            Debug.Log(instructionOperator);
+            Debug.Log(instruction[instructionLength-1]);
+            Debug.Log(instructionValue);
+
+            if (instructionOperator == "Times") { result = data * instructionValue; }
+            else if (instructionOperator == "Minus") { result = data - instructionValue; }
+            else if (instructionOperator == "Add") { result = data + instructionValue; }
+
+            Destroy(gameObject.transform.Find("IT").gameObject);
+
+            GameObject dt = gameObject.transform.Find("DT").gameObject; // reusing DT for result
+            dt.name = "Result";
+            TextMeshPro tmp = dt.GetComponent<TextMeshPro>();
+            tmp.SetText("Result: " + result.ToString());
+            tmp.color = Color.white;
+
+            calculatorStatusText.SetText("Calculated!");
+            calculated = true;
+        }
+        if (hitInfo.CompareTag("ACCTrigger") && !accTriggered) {
+            GameObject result = gameObject.transform.Find("Result").gameObject;
+
+            GameObject resultClone = Instantiate(result);
+            resultClone.transform.SetParent(null);
+            resultClone.name = "Result Clone";
+            resultClone.transform.localScale = new Vector3(10, 10, 2);
+            resultClone.transform.position = new Vector3(-46.5f, -57f, 0f);
+
+            accTriggered = true;
+        }
     }
 
     void OnTriggerExit2D(Collider2D hitInfo) {
