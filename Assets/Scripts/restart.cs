@@ -16,4 +16,8 @@ public class restart : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
         Time.timeScale = 1;
     }
+    public void backToMain()
+    {
+        SceneManager.LoadScene("mainmenu");
+    }
 }
